@@ -34,7 +34,7 @@ public class Floor extends TwoClickBuildable {
         //Then only 1 can be valid, return that one
         Criteria selected = criteriaList.get(0);
 
-        return new BlockPos(selected.planeBound);
+        return BlockPos.containing(selected.planeBound);
     }
 
     public static List<BlockPos> getFloorBlocks(Player player, int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -54,7 +54,7 @@ public class Floor extends TwoClickBuildable {
 
             for (int n = z1; z1 < z2 ? n <= z2 : n >= z2; n += z1 < z2 ? 1 : -1) {
 
-                list.add(new BlockPos(l, y, n));
+                list.add(BlockPos.containing(l, y, n));
             }
         }
     }

@@ -145,8 +145,8 @@ public abstract class GuiMixin {
         validItemStacks.forEach(stack -> {
             var width = defaultWidth + positionX.get() * SPACING_X * sign;
             var height = defaultHeight + positionY.get() * SPACING_Y;
-            itemRenderer.renderGuiItem(stack, width, height);
-            itemRenderer.renderGuiItemDecorations(getFont(), stack, width, height, Integer.toString(stack.getCount()));
+            itemRenderer.renderGuiItem(poseStack, stack, width, height);
+            itemRenderer.renderGuiItemDecorations(poseStack, getFont(), stack, width, height, Integer.toString(stack.getCount()));
             if (positionX.get() >= 8) {
                 positionX.set(0);
                 positionY.getAndIncrement();
@@ -158,8 +158,8 @@ public abstract class GuiMixin {
         invalidItemStacks.forEach(stack -> {
             var width = defaultWidth + positionX.get() * SPACING_X * sign;
             var height = defaultHeight + positionY.get() * SPACING_Y;
-            itemRenderer.renderGuiItem(stack, width, height);
-            itemRenderer.renderGuiItemDecorations(getFont(), stack, width, height, ChatFormatting.RED + Integer.toString(stack.getCount()) + ChatFormatting.RESET);
+            itemRenderer.renderGuiItem(poseStack, stack, width, height);
+            itemRenderer.renderGuiItemDecorations(poseStack, getFont(), stack, width, height, ChatFormatting.RED + Integer.toString(stack.getCount()) + ChatFormatting.RESET);
             if (positionX.get() >= 8) {
                 positionX.set(0);
                 positionY.getAndIncrement();

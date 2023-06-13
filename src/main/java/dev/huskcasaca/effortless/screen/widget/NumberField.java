@@ -89,7 +89,7 @@ public class NumberField extends GuiComponent {
         //Rightclicked inside textfield
         if (flag && button == 1) {
             textField.setValue("");
-            textField.setFocus(true);
+            textField.setFocused(true);
             result = true;
         }
 

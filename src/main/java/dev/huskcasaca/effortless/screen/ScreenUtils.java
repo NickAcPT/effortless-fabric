@@ -196,7 +196,6 @@ public class ScreenUtils {
         float endBlue = (float) (endColor & 255) / 255.0F;
 
         RenderSystem.enableDepthTest();
-        RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -211,7 +210,6 @@ public class ScreenUtils {
         tesselator.end();
 
         RenderSystem.disableBlend();
-        RenderSystem.enableTexture();
     }
 
     public static void blitInscribed(PoseStack poseStack, int x, int y, int boundsWidth, int boundsHeight, int rectWidth, int rectHeight) {

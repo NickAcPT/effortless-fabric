@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-includeBuild("gradle-curseforge-publish")
+//includeBuild("gradle-curseforge-publish")

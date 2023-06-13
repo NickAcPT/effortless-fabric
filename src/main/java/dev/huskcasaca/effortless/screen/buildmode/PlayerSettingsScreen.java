@@ -182,7 +182,7 @@ public class PlayerSettingsScreen extends Screen {
             return super.isMouseOver(mouseX, mouseY);
         }
 
-        protected boolean isFocused() {
+        public boolean isFocused() {
             return PlayerSettingsScreen.this.getFocused() == this;
         }
 
@@ -214,7 +214,7 @@ public class PlayerSettingsScreen extends Screen {
             int l = this.y0 + 4 - (int) this.getScrollAmount();
             // TODO: 7/9/22 access private field renderHeader
             if (renderHeader) {
-                this.renderHeader(poseStack, k, l, tesselator);
+                this.renderHeader(poseStack, k, l);
             }
 
             this.renderList(poseStack, mouseX, mouseY, partialTicks);
@@ -223,7 +223,6 @@ public class PlayerSettingsScreen extends Screen {
 //            this.renderHoleBackground(this.y1, this.height, 255, 255);
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-            RenderSystem.disableTexture();
 //            int i1 = 4;
 //            bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 //            bufferbuilder.pos((double)this.x0, (double)(this.y0 + 4), 0.0D).tex(0.0F, 1.0F).color(0, 0, 0, 0).endVertex();
@@ -269,7 +268,6 @@ public class PlayerSettingsScreen extends Screen {
             }
 
 //            this.renderDecorations(mouseX, mouseY);
-            RenderSystem.enableTexture();
             RenderSystem.disableBlend();
         }
 

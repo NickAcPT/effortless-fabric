@@ -97,7 +97,6 @@ public class ScrollPane extends Slot {
 
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-            RenderSystem.disableTexture();
 
             //top
 //            bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -146,7 +145,6 @@ public class ScrollPane extends Slot {
             }
 
             //this.renderDecorations(mouseX, mouseY);
-            RenderSystem.enableTexture();
             RenderSystem.disableBlend();
         }
     }
@@ -350,7 +348,6 @@ public class ScrollPane extends Slot {
             if (this.renderSelection && this.isSelectedItem(i)) {
                 int i1 = this.x0 + this.width / 2 - this.getRowWidth() / 2;
                 int j1 = this.x0 + this.width / 2 + this.getRowWidth() / 2;
-                RenderSystem.disableTexture();
                 float f = this.isFocused() ? 1.0F : 0.5F;
                 RenderSystem.setShaderColor(f, f, f, 1.0F);
                 bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
@@ -366,7 +363,6 @@ public class ScrollPane extends Slot {
                 bufferbuilder.vertex(j1 - 1, y - 1, 0.0D).endVertex();
                 bufferbuilder.vertex(i1 + 1, y - 1, 0.0D).endVertex();
                 tesselator.end();
-                RenderSystem.enableTexture();
             }
 
             this.renderItem(poseStack, i, insideLeft, y, entryHeight2, mouseXIn, mouseYIn, partialTicks);

@@ -19,15 +19,27 @@ public class ExtendedButton extends Button {
         super(posX, posY, width, height, displayString, handler, Button.DEFAULT_NARRATION);
     }
 
+
+    private int getTextureY() {
+        int i = 1;
+        if (!this.active) {
+            i = 0;
+        } else if (this.isHoveredOrFocused()) {
+            i = 2;
+        }
+
+        return 46 + i * 20;
+    }
+
     /**
      * Draws this button to the screen.
      */
     @Override
-    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         Minecraft mc = Minecraft.getInstance();
-        int k = this.getYImage(this.isHovered);
-        ScreenUtils.blitWithBorder(poseStack, WIDGETS_LOCATION, this.getX(), this.getY(), 0, 46 + k * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, this.getBlitOffset());
-        this.renderBg(poseStack, mc, mouseX, mouseY);
+        int k = this.getTextureY();
+        ScreenUtils.blitWithBorder(poseStack, WIDGETS_LOCATION, this.getX(), this.getY(), 0, 46 + k * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, 1);
+        //this.renderBg(poseStack, mc, mouseX, mouseY);
 
         Component buttonText = this.getMessage();
         int strWidth = mc.font.width(buttonText);

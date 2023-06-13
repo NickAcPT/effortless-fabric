@@ -114,14 +114,13 @@ public class RadialMenuScreen extends Screen {
         if (minecraft.level != null) {
             fillGradient(poseStack, 0, 0, this.width, this.height,  (int) (visibility * 0xC0) << 24 | 0x101010, (int) (visibility * 0xD0) << 24 | 0x101010);
         } else {
-            this.renderDirtBackground(0);
+            this.renderDirtBackground(poseStack);
         }
 
         BuildMode currentBuildMode = BuildModeHelper.getModeSettings(minecraft.player).buildMode();
 
         poseStack.pushPose();
 
-        RenderSystem.disableTexture();
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         final var tesselator = Tesselator.getInstance();
@@ -187,14 +186,13 @@ public class RadialMenuScreen extends Screen {
         doAction = null;
 
         //Draw buildmode backgrounds
-        drawRadialButtonBackgrounds(currentBuildMode, buffer, middleX, middleY, mouseXCenter, mouseYCenter, mouseRadians, RING_INNER_EDGE, RING_OUTER_EDGE, quarterCircle, modes);
+        drawRadialButtonBackgrounds(poseStack, currentBuildMode, buffer, middleX, middleY, mouseXCenter, mouseYCenter, mouseRadians, RING_INNER_EDGE, RING_OUTER_EDGE, quarterCircle, modes);
 
         //Draw action backgrounds
-        drawSideButtonBackgrounds(buffer, middleX, middleY, mouseXCenter, mouseYCenter, buttons);
+        drawSideButtonBackgrounds(poseStack, buffer, middleX, middleY, mouseXCenter, mouseYCenter, buttons);
 
         tesselator.end();
         RenderSystem.disableBlend();
-        RenderSystem.enableTexture();
 
         drawIcons(poseStack, tesselator, buffer, middleX, middleY, RING_INNER_EDGE, RING_OUTER_EDGE, modes, buttons);
 
@@ -223,7 +221,7 @@ public class RadialMenuScreen extends Screen {
         return btns.stream().map(btn -> btn.x1).min(Double::compare).get() <= mouseXCenter && btns.stream().map(btn -> btn.x2).max(Double::compare).get() >= mouseXCenter && btns.stream().map(btn -> btn.y1).min(Double::compare).get() <= mouseYCenter && btns.stream().map(btn -> btn.y2).max(Double::compare).get() >= mouseYCenter;
     }
 
-    private void drawRadialButtonBackgrounds(BuildMode currentBuildMode, BufferBuilder buffer, double middleX, double middleY, double mouseXCenter, double mouseYCenter, double mouseRadians, double ringInnerEdge, double ringOuterEdge, double quarterCircle, ArrayList<ModeRegion> modes) {
+    private void drawRadialButtonBackgrounds(PoseStack poseStack, BuildMode currentBuildMode, BufferBuilder buffer, double middleX, double middleY, double mouseXCenter, double mouseYCenter, double mouseRadians, double ringInnerEdge, double ringOuterEdge, double quarterCircle, ArrayList<ModeRegion> modes) {
         if (modes.isEmpty()) {
             return;
         }
@@ -266,10 +264,10 @@ public class RadialMenuScreen extends Screen {
                 switchTo = modeRegion.mode;
             }
 
-            buffer.vertex(middleX + x1m1, middleY + y1m1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m1, middleY + y2m1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m2, middleY + y2m2, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x1m2, middleY + y1m2, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m1, middleY + y1m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m1, middleY + y2m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m2, middleY + y2m2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m2, middleY + y1m2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
 
             //Category line
             color = modeRegion.mode.getCategory().getColor();
@@ -279,14 +277,14 @@ public class RadialMenuScreen extends Screen {
             final double y1m3 = Math.sin(beginRadians + fragment) * CATEGORY_LINE_OUTER_EDGE;
             final double y2m3 = Math.sin(endRadians - fragment) * CATEGORY_LINE_OUTER_EDGE;
 
-            buffer.vertex(middleX + x1m1, middleY + y1m1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m1, middleY + y2m1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m3, middleY + y2m3, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x1m3, middleY + y1m3, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m1, middleY + y1m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m1, middleY + y2m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m3, middleY + y2m3, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m3, middleY + y1m3, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
         }
     }
 
-    private void drawSideButtonBackgrounds(BufferBuilder buffer, double middleX, double middleY, double mouseXCenter, double mouseYCenter, ArrayList<MenuButton> buttons) {
+    private void drawSideButtonBackgrounds(PoseStack poseStack, BufferBuilder buffer, double middleX, double middleY, double mouseXCenter, double mouseYCenter, ArrayList<MenuButton> buttons) {
         for (final MenuButton btn : buttons) {
 
             final boolean isSelected = Arrays.stream(getOptions()).toList().contains(btn.action);
@@ -303,16 +301,15 @@ public class RadialMenuScreen extends Screen {
                 doAction = btn.action;
             }
 
-            buffer.vertex(middleX + btn.x1, middleY + btn.y1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x1, middleY + btn.y2, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x2, middleY + btn.y2, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x2, middleY + btn.y1, getBlitOffset()).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x1, middleY + btn.y1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x1, middleY + btn.y2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x2, middleY + btn.y2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x2, middleY + btn.y1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
         }
     }
 
     private void drawIcons(PoseStack poseStack, Tesselator tesselator, BufferBuilder buffer, double middleX, double middleY, double ringInnerEdge, double ringOuterEdge, ArrayList<ModeRegion> modes, ArrayList<MenuButton> buttons) {
         poseStack.pushPose();
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 

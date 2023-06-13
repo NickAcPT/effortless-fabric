@@ -225,7 +225,6 @@ public abstract class Slot extends AbstractContainerEventHandler implements Rend
             if (this.renderSelection && this.isSelectedItem(j)) {
                 int i1 = this.x0 + this.width / 2 - this.getRowWidth() / 2;
                 int j1 = this.x0 + this.width / 2 + this.getRowWidth() / 2;
-                RenderSystem.disableTexture();
                 float f = this.isFocused() ? 1.0F : 0.5F;
                 RenderSystem.setShaderColor(f, f, f, 1.0F);
                 bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
@@ -241,7 +240,6 @@ public abstract class Slot extends AbstractContainerEventHandler implements Rend
                 bufferbuilder.vertex(j1 - 1, k - 1, 0.0D).endVertex();
                 bufferbuilder.vertex(i1 + 1, k - 1, 0.0D).endVertex();
                 tesselator.end();
-                RenderSystem.enableTexture();
             }
 
             this.renderItem(poseStack, j, insideLeft, k, l, mouseXIn, mouseYIn, partialTicks);
@@ -249,7 +247,7 @@ public abstract class Slot extends AbstractContainerEventHandler implements Rend
 
     }
 
-    protected boolean isFocused() {
+    public boolean isFocused() {
         return false;
     }
 

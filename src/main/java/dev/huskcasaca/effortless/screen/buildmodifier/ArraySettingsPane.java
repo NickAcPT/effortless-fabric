@@ -168,7 +168,7 @@ public class ArraySettingsPane extends ExpandableScrollEntry {
         boolean arrayEnabled = buttonArrayEnabled.isChecked();
         var arrayOffset = new BlockPos(0, 0, 0);
         try {
-            arrayOffset = new BlockPos(textArrayOffsetX.getNumber(), textArrayOffsetY.getNumber(), textArrayOffsetZ.getNumber());
+            arrayOffset = BlockPos.containing(textArrayOffsetX.getNumber(), textArrayOffsetY.getNumber(), textArrayOffsetZ.getNumber());
         } catch (NumberFormatException | NullPointerException ex) {
             Effortless.log(mc.player, "Array offset not a valid number.");
         }

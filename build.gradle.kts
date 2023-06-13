@@ -1,10 +1,10 @@
-import io.github.huskcasaca.gradlecurseforgeplugin.*
+//import io.github.huskcasaca.gradlecurseforgeplugin.*
 import java.util.*
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.loom)
-    id("io.github.huskcasaca.gradle-curseforge-plugin") version "1.0.0-alpha"
+    //id("io.github.huskcasaca.gradle-curseforge-plugin") version "1.0.0-alpha"
 }
 
 version = "1.6.3"
@@ -61,7 +61,7 @@ tasks {
     }
 }
 
-publishing {
+/*publishing {
     val properties = Properties().apply {
         file("local.properties").apply {
             if (isFile) {
@@ -91,4 +91,4 @@ publishing {
             }
         }
     }
-}
+}*/
