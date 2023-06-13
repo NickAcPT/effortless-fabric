@@ -61,7 +61,7 @@ public class RadialMenuScreen extends Screen {
     private static final double TEXT_DISTANCE = 90;
     private static final double BUTTON_DISTANCE = 120;
     private static final float FADE_SPEED = 0.5f;
-    private static final int DESCRIPTION_HEIGHT = 100;
+    private static final int DESCRIPTION_HEIGHT = 0;
 
     public static final int MODE_OPTION_ROW_HEIGHT = 39;
 
@@ -264,10 +264,10 @@ public class RadialMenuScreen extends Screen {
                 switchTo = modeRegion.mode;
             }
 
-            buffer.vertex(middleX + x1m1, middleY + y1m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m1, middleY + y2m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m2, middleY + y2m2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x1m2, middleY + y1m2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m1, middleY + y1m1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m1, middleY + y2m1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m2, middleY + y2m2, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m2, middleY + y1m2, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
 
             //Category line
             color = modeRegion.mode.getCategory().getColor();
@@ -277,10 +277,10 @@ public class RadialMenuScreen extends Screen {
             final double y1m3 = Math.sin(beginRadians + fragment) * CATEGORY_LINE_OUTER_EDGE;
             final double y2m3 = Math.sin(endRadians - fragment) * CATEGORY_LINE_OUTER_EDGE;
 
-            buffer.vertex(middleX + x1m1, middleY + y1m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m1, middleY + y2m1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x2m3, middleY + y2m3, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + x1m3, middleY + y1m3, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m1, middleY + y1m1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m1, middleY + y2m1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x2m3, middleY + y2m3, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + x1m3, middleY + y1m3, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
         }
     }
 
@@ -301,10 +301,10 @@ public class RadialMenuScreen extends Screen {
                 doAction = btn.action;
             }
 
-            buffer.vertex(middleX + btn.x1, middleY + btn.y1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x1, middleY + btn.y2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x2, middleY + btn.y2, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
-            buffer.vertex(middleX + btn.x2, middleY + btn.y1, 1).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x1, middleY + btn.y1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x1, middleY + btn.y2, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x2, middleY + btn.y2, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
+            buffer.vertex(middleX + btn.x2, middleY + btn.y1, 0).color(color.x(), color.y(), color.z(), color.w()).endVertex();
         }
     }
 
