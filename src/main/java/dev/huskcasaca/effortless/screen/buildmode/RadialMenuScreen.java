@@ -456,6 +456,7 @@ public class RadialMenuScreen extends Screen {
         //After onClose so it can open another screen
         if (!performedActionUsingMouse) {
             performAction(false);
+            return;
         }
         var player = Minecraft.getInstance().player;
         if (player != null) {
