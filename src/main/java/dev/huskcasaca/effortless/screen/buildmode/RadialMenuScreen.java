@@ -452,6 +452,12 @@ public class RadialMenuScreen extends Screen {
 
     @Override
     public void onClose() {
+        super.onClose();
+        //After onClose so it can open another screen
+        if (!performedActionUsingMouse) {
+            performAction(false);
+            return;
+        }
         var player = Minecraft.getInstance().player;
         if (player != null) {
             if (lastAction == null) {
@@ -473,7 +479,6 @@ public class RadialMenuScreen extends Screen {
                 lastAction = null;
             }
         }
-        super.onClose();
     }
 
     @Override
