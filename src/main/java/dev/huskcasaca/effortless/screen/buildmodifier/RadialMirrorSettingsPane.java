@@ -242,6 +242,13 @@ public class RadialMirrorSettingsPane extends ExpandableScrollEntry {
         return true;
     }
 
+    public boolean keyPressed(int i, int j, int k) {
+        for (NumberField numberField : radialMirrorNumberFieldList) {
+            numberField.keyPressed(i, j, k);
+        }
+        return true;
+    }
+
     @Override
     public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
         radialMirrorNumberFieldList.forEach(numberField -> numberField.mouseClicked(mouseX, mouseY, mouseEvent));

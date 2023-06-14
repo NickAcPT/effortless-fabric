@@ -150,6 +150,13 @@ public class ArraySettingsPane extends ExpandableScrollEntry {
         return true;
     }
 
+    public boolean keyPressed(int i, int j, int k) {
+        for (NumberField numberField : arrayNumberFieldList) {
+            numberField.keyPressed(i, j, k);
+        }
+        return true;
+    }
+
     @Override
     public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
         arrayNumberFieldList.forEach(numberField -> numberField.mouseClicked(mouseX, mouseY, mouseEvent));

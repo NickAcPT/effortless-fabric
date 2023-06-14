@@ -96,6 +96,10 @@ public class ModifierSettingsScreen extends Screen {
         if (keyCode == Keys.MODIFIER_MENU.getKeyMapping().key.getValue()) {
             return true;
         }
+        scrollPane.keyPressed(keyCode, p_96553_, p_96554_);
+        mirrorSettingsPane.keyPressed(keyCode, p_96553_, p_96554_);
+        arraySettingsPane.keyPressed(keyCode, p_96553_, p_96554_);
+        radialMirrorSettingsPane.keyPressed(keyCode, p_96553_, p_96554_);
         return super.keyPressed(keyCode, p_96553_, p_96554_);
     }
 

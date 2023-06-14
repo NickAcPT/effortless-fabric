@@ -145,11 +145,12 @@ public class NumberField extends GuiComponent {
 
     public boolean charTyped(char typedChar, int keyCode) {
         if (!textField.isFocused()) return false;
-//        if (Character.isDigit(typedChar) || typedChar == '.' || typedChar == '-' || keyCode == Keyboard.KEY_BACK
-//            || keyCode == Keyboard.KEY_DELETE || keyCode == Keyboard.KEY_LEFT || keyCode == Keyboard.KEY_RIGHT
-//            || keyCode == Keyboard.KEY_UP || keyCode == Keyboard.KEY_DOWN) {
         return textField.charTyped(typedChar, keyCode);
-//        }
+    }
+
+    public boolean keyPressed(int i, int j, int k) {
+        if (!textField.isFocused()) return false;
+        return textField.keyPressed(i, j, k);
     }
 
     //Scroll inside textfield to change number
